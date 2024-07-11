@@ -171,13 +171,16 @@ case 'composite':
 ![スクリーンショット 2024-07-11 14 55 30](https://github.com/ponstream24/DFTSimulator/assets/87808547/370b11b7-46d0-4a61-91fd-0dc2c6c28907)
 
 
-
 ## 参考文献
 - [1] 三井田惇郎，須田宇宙，”数値計算法　第2版新装版”, 森北出版株式会社, 2019年
 - [2] “simple_dft”, [https://github.com/sudahiroshi/simple_dft](https://github.com/sudahiroshi/simple_dft), 2024/7/11参照
 - [3] OpenAI. (n.d.). ChatGPT, [https://openai.com/chatgpt](https://openai.com/chatgpt), 2024/7/11参照
 
 ## 付録
+
+### Github
+DFTSimulator Web : [https://ponstream24.github.io/DFTSimulator](https://ponstream24.github.io/DFTSimulator)
+Git Repository : [https://github.com/ponstream24/DFTSimulator.git](https://github.com/ponstream24/DFTSimulator.git)
 
 ### シミュレーター生成に使ったメインのプロンプト
 ```
