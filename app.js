@@ -41,82 +41,78 @@ function generateSignal(waveform, frequency, samples) {
       break;
     case 'sawtooth':
       for (let i = 0; i < samples; i++) {
-        signal[i] = 2 * (i / sampleRate * frequency - Math.floor(0.5 + i / sampleRate * frequency));
+        signal[i] = 2 * (i / sampleRate * frequency - Math.floor(i / sampleRate * frequency + 0.5));
       }
       break;
     case 'composite':
-      const params = Array.from(document.querySelectorAll('#paramsContainer input[type="number"]')).reduce((acc, input, index) => {
-        if (index % 2 === 0) {
-          acc.push({ freq: parseFloat(input.value), amp: 1 });
-        } else {
-          acc[acc.length - 1].amp = parseFloat(input.value);
-        }
-        return acc;
-      }, []);
+      const frequencies = Array.from(document.querySelectorAll('input[name="frequency[]"]')).map(input => parseFloat(input.value));
+      const amplitudes = Array.from(document.querySelectorAll('input[name="amplitude[]"]')).map(input => parseFloat(input.value));
 
       for (let i = 0; i < samples; i++) {
-        signal[i] = params.reduce((sum, { freq, amp }) => sum + amp * Math.sin(2 * Math.PI * freq * i / sampleRate), 0);
+        for (let j = 0; j < frequencies.length; j++) {
+          const angularFreq = 2 * Math.PI * frequencies[j] / sampleRate;
+          signal[i] += amplitudes[j] * Math.sin(angularFreq * i);
+        }
       }
+      break;
+    default:
       break;
   }
 
   return signal;
 }
 
-// Add parameter fields for composite waveform
-document.getElementById('addParam').addEventListener('click', () => {
-  const paramsContainer = document.getElementById('paramsContainer');
-
-  const newFields = `
-    <div class="field is-horizontal param-row">
-      <div class="field-body">
-        <div class="field">
-          <label class="label" for="freq">周波数 (Hz)</label>
-          <div class="control">
-            <input class="input" type="number" name="frequency[]" value="1" min="1">
-          </div>
-        </div>
-        <div class="field">
-          <label class="label" for="amp">振幅</label>
-          <div class="control">
-            <input class="input" type="number" name="amplitude[]" value="1" min="0">
-          </div>
-        </div>
-        <div class="field">
-          <label class="label"></label>
-          <div class="control">
-            <button class="button is-danger delete-param">削除</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
-
-  paramsContainer.insertAdjacentHTML('beforeend', newFields);
-});
-
-// Delete parameter fields for composite waveform
-document.addEventListener('click', (event) => {
-  if (event.target.classList.contains('delete-param')) {
-    const paramRow = event.target.closest('.param-row');
-    paramRow.remove();
-  }
-});
-
-// Event listener for waveform selection
+// Event listeners
 document.getElementById('waveform').addEventListener('change', (event) => {
-  const waveform = event.target.value;
   const compositeParams = document.getElementById('compositeParams');
-
-  if (waveform === 'composite') {
+  if (event.target.value === 'composite') {
     compositeParams.style.display = 'block';
   } else {
     compositeParams.style.display = 'none';
   }
 });
 
-// Event listeners for signal generation and DFT calculation
+document.getElementById('addParam').addEventListener('click', () => {
+  const paramsContainer = document.getElementById('paramsContainer');
+  const paramRow = document.createElement('div');
+  paramRow.className = 'field is-horizontal param-row';
+  paramRow.innerHTML = `
+    <div class="field-body">
+      <div class="field">
+        <label class="label" for="freq">周波数 (Hz)</label>
+        <div class="control">
+          <input class="input" type="number" name="frequency[]" value="1" min="1">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label" for="amp">振幅</label>
+        <div class="control">
+          <input class="input" type="number" name="amplitude[]" value="1" min="0">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label"></label>
+        <div class="control">
+          <button class="button is-danger delete-param">削除</button>
+        </div>
+      </div>
+    </div>
+  `;
+  paramsContainer.appendChild(paramRow);
+});
+
+document.addEventListener('click', (event) => {
+  if (event.target.classList.contains('delete-param')) {
+    event.target.closest('.param-row').remove();
+  }
+});
+
 document.getElementById('generateSignal').addEventListener('click', () => {
+  // Clear previous data
+  document.getElementById('inputSignal').value = '';
+  Plotly.purge('outputSignal');
+  Plotly.purge('outputDFT');
+
   const waveform = document.getElementById('waveform').value;
   const frequency = parseFloat(document.getElementById('frequency').value);
   const samples = parseInt(document.getElementById('samples').value, 10);
