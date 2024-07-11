@@ -97,3 +97,23 @@ $$ X[k] = \sum_{n=0}^{N-1} x[n] e^{-j\frac{2\pi}{N} nk} $$
 
 ## 3 感想
 自分でDFTのシステムを構築したのでより理解が深まった。DFTができたので、次はDFTを使った音加工やIoTなどにも活かして開発してみたいと思う。
+
+
+## 参考文献
+- [1] 三井田惇郎，須田宇宙，”数値計算法　第2版新装版”, 森北出版株式会社, 2019年
+- [2] “simple_dft”, [https://github.com/sudahiroshi/simple_dft](https://github.com/sudahiroshi/simple_dft), 2024/7/11参照
+- [3] OpenAI. (n.d.). ChatGPT, [https://openai.com/chatgpt](https://openai.com/chatgpt), 2024/7/11参照
+
+## 付録
+
+### シミュレーター生成に使ったメインのプロンプト
+```
+Make the following system.
+This system is a simulator for beginning students learning the Discrete Fourier Transform (DFT). The simulator provides the ability to generate different types of waveforms (sine, square, triangle, sawtooth, and composite) and calculate the DFT for them. The user can set the basic parameters: waveform type, fundamental frequency, and number of samples.
+
+If synthetic waves are selected, the user can specify multiple frequencies and corresponding amplitudes. This allows for the construction of complex signals. The generated signal is displayed as numerical data and can also be visualized graphically; the function to calculate the DFT applies a discrete Fourier transform to the generated signal and displays its amplitude spectrum.
+
+The simulator is intended to be intuitive, helping the user to visually understand the generated signal and the DFT results. The technologies used include HTML, CSS (using the Bulma framework), and JavaScript. graphs are drawn through the Plotly library, helping the user to observe theoretical concepts as real data.
+
+The main goal of the system is to help learners intuitively understand the basic steps of DFT and its results.
+```
