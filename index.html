@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DFTシミュレーター</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <style>
+    .field-body {
+      align-items: flex-end;
+    }
+  </style>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <section class="section">
+    <div class="container">
+      <h1 class="title">DFTシミュレーター</h1>
+      <div class="box">
+        <div class="field">
+          <label class="label" for="waveform">波形</label>
+          <div class="control">
+            <div class="select">
+              <select id="waveform">
+                <option value="sine">正弦波</option>
+                <option value="square">矩形波</option>
+                <option value="triangle">三角波</option>
+                <option value="sawtooth">のこぎり波</option>
+                <option value="composite">合成波</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="field" id="compositeParams" style="display: none;">
+          <label class="label">合成波のパラメータ</label>
+          <div id="paramsContainer">
+            <div class="field is-horizontal param-row">
+              <div class="field-body">
+                <div class="field">
+                  <label class="label" for="freq">周波数 (Hz)</label>
+                  <div class="control">
+                    <input class="input" type="number" name="frequency[]" value="1" min="1">
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label" for="amp">振幅</label>
+                  <div class="control">
+                    <input class="input" type="number" name="amplitude[]" value="1" min="0">
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label"></label>
+                  <div class="control">
+                    <button class="button is-danger delete-param">削除</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="button is-info" id="addParam">+</button>
+        </div>
+
+        <div class="field">
+          <label class="label" for="frequency">基本周波数 (Hz)</label>
+          <div class="control">
+            <input class="input" type="number" id="frequency" value="1" min="1">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for="samples">サンプル数</label>
+          <div class="control">
+            <input class="input" type="number" id="samples" value="64" min="1">
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <button class="button is-primary" id="generateSignal">信号を生成</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <textarea class="textarea" id="inputSignal" placeholder="カンマで区切られた信号値を入力"></textarea>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <button class="button is-link" id="calculateDFT">DFTを計算</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="box">
+        <h2 class="subtitle">DFT出力</h2>
+        <div id="outputDFT"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        &copy; 2024 - <span id="currentYear"></span> <a href="https://yukitetsuka.com" target="_blank" rel="noopener noreferrer">yukitetsuka.com</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
