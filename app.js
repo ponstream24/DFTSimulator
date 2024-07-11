@@ -124,6 +124,20 @@ document.getElementById('generateSignal').addEventListener('click', () => {
   const signal = generateSignal(waveform, frequency, samples);
 
   document.getElementById('inputSignal').value = signal.join(',');
+
+  const traceSignal = {
+    x: Array.from({ length: signal.length }, (_, i) => i),
+    y: signal,
+    type: 'scatter',
+  };
+
+  const layoutSignal = {
+    title: '生成された信号',
+    xaxis: { title: 'サンプル' },
+    yaxis: { title: '振幅' },
+  };
+
+  Plotly.newPlot('outputSignal', [traceSignal], layoutSignal);
 });
 
 document.getElementById('calculateDFT').addEventListener('click', () => {
@@ -139,19 +153,19 @@ document.getElementById('calculateDFT').addEventListener('click', () => {
 
   const magnitude = real.map((r, i) => Math.sqrt(r * r + imag[i] * imag[i]));
 
-  const trace = {
+  const traceDFT = {
     x: Array.from({ length: signal.length }, (_, i) => i),
     y: magnitude,
     type: 'scatter',
   };
 
-  const layout = {
+  const layoutDFT = {
     title: 'DFT振幅スペクトル',
     xaxis: { title: '周波数ビン' },
-    yaxis: { title: '振幅' }
+    yaxis: { title: '振幅' },
   };
 
-  Plotly.newPlot('outputDFT', [trace], layout);
+  Plotly.newPlot('outputDFT', [traceDFT], layoutDFT);
 });
 
 // Set the current year in the footer
