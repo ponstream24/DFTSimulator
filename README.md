@@ -106,6 +106,10 @@ $$ X[k] = \sum_{n=0}^{N-1} x[n] e^{-j\frac{2\pi}{N} nk} $$
 
 ## 付録
 
+### Github
+DFTSimulator Web : [https://ponstream24.github.io/DFTSimulator](https://ponstream24.github.io/DFTSimulator)
+Git Repository : [https://github.com/ponstream24/DFTSimulator.git](https://github.com/ponstream24/DFTSimulator.git)
+
 ### シミュレーター生成に使ったメインのプロンプト
 ```
 Make the following system.
