@@ -67,7 +67,7 @@
 　フーリエ変換はアナログ信号の周波数を周波数領域に変換する方法ですが、離散フーリエ変換はデジタル信号の周波数を周波数領域に変換する方法です。下の図(*画2.1*)の通り、アナログ信号は連続的な波の情報ですが、デジタル信号は離散的な波の情報です。
  
 ![image](https://github.com/ponstream24/DFTSimulator/assets/87808547/e2899c52-988f-46ed-8861-0676e441032f)*画2.1*
-<p align="center">出展 : KLV大学 光センサーコース　アナログ信号とデジタル信号の違い</p>
+<p align="center">出展 : [KLV大学 光センサーコース　アナログ信号とデジタル信号の違い](https://www.klv.co.jp/corner/fft-in-freq-analysis.html)</p>
 
 ### 2.2 DFT理論
 DFTは、まず離散的な時間サンプルx[n](n = 0,1,2,3,4,....,N-1)を入力として受け取ります。このサンプルは等間隔でサンプリングされた信号です。次に与えられたサンプルから、それぞれの周波数kに対する振幅と位相を計算します。
@@ -103,6 +103,8 @@ $$ X[k] = \sum_{n=0}^{N-1} x[n] e^{-j\frac{2\pi}{N} nk} $$
 - [1] 三井田惇郎，須田宇宙，”数値計算法　第2版新装版”, 森北出版株式会社, 2019年
 - [2] “simple_dft”, [https://github.com/sudahiroshi/simple_dft](https://github.com/sudahiroshi/simple_dft), 2024/7/11参照
 - [3] OpenAI. (n.d.). ChatGPT, [https://openai.com/chatgpt](https://openai.com/chatgpt), 2024/7/11参照
+- [4] ケイエルブイ株式会社. "周波数解析におけるフーリエ変換を数式を使わずにわかりやすく解説！". ケイエルブイ, [https://www.klv.co.jp/corner/fft-in-freq-analysis.html](https://www.klv.co.jp/corner/fft-in-freq-analysis.html), 2024/7/11参照
+
 
 ## 付録
 
